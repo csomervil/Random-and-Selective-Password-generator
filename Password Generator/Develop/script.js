@@ -16,9 +16,9 @@ var charupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 function generatePassword() {
 
-  var passlenmin = window.prompt("Desired MINIMUM length of password")
+  var min = window.prompt("Desired MINIMUM length of password")
 
-  var passlenmax = window.prompt("Desired MAXIMUM length of password")
+  var max = window.prompt("Desired MAXIMUM length of password")
 
   var passlower= confirm("Should there be LOWERCASE?")
 
@@ -44,12 +44,12 @@ function generatePassword() {
       var pool = pool + special
 
     }
-
-  for ( var i = 0; i < length; i++ ) {
-    password += pool.charAt(Math.floor(Math.random() * pool.length));
+  newpool = ""
+  for ( var i = 0; i < max; i++ ) {
+    newpool += pool.charAt(Math.floor(Math.random() * (max - min + 1) + min));
   
   }
-  return password
+  return newpool;
 }
 
 // Write password to the #password input
