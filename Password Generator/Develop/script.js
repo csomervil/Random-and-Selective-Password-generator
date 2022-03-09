@@ -43,61 +43,66 @@ function generatePassword() {
       return null;
     }
 
-    if ((choicenumber === 4) && mini < 4) {
+    if (parseInt(mini) < choicenumber || parseInt(maxi) < parseInt(mini)) {
       window.alert("Your range is not possible with your requests. Please try again.")
       return null;
     }
     
-    /* Amalgimated String for True Randomness */
-    var prepool = "";
-      if (passlower === true) {
-        prepool += charlower;
+  /* Amalgimated String for True Randomness */
+  var prepool = "";
 
-      } if (passupper === true) {
+    if (passlower === true) {
+      prepool += charlower;
+
+    } if (passupper === true) {
         prepool += charupper;
 
-      } if (passnumber === true) {
+    } if (passnumber === true) {
         prepool += numbers;
 
-      } if (passspecial === true) {
-        prepool += special;
-      }
+    } if (passspecial === true) {
+      prepool += special;
 
-    var pool = "";
+    }
+
+  var pool = "";
 
       /* While Loop to Pass Each Character Type at Least once and then Pull Random Values From total String pool */
-      while (pool.length < randomint) {
+    while (pool.length < randomint) {
     
-        if (passlower === true && pool.length < choicenumber) {
-          pool += charlower.charAt(Math.floor(Math.random() * charlower.length));
+      if (passlower === true && pool.length < choicenumber) {
+        pool += charlower.charAt(Math.floor(Math.random() * charlower.length));
 
-        } if (passupper === true && pool.length < choicenumber) {
-          pool += charupper.charAt(Math.floor(Math.random() * charupper.length));
+      } if (passupper === true && pool.length < choicenumber) {
+        pool += charupper.charAt(Math.floor(Math.random() * charupper.length));
 
-        } if (passnumber === true && pool.length < choicenumber) {
-          pool += numbers.charAt(Math.floor(Math.random() * numbers.length));
+      } if (passnumber === true && pool.length < choicenumber) {
+        pool += numbers.charAt(Math.floor(Math.random() * numbers.length));
 
-        } if (passspecial === true && pool.length < choicenumber) {
-          pool += special.charAt(Math.floor(Math.random() * special.length));
+      } if (passspecial === true && pool.length < choicenumber) {
+        pool += special.charAt(Math.floor(Math.random() * special.length));
 
-        } if (passspecial === true && pool.length < randomint) {
-          pool += prepool.charAt(Math.floor(Math.random() * prepool.length));
-        }
-      
-      } 
-
-      /* Suffle function after the creation of string */
-      function shuffleWord (word){
-        word = word.split("")
-        for (var i = word.length - 1; i > 0; i--) {
-          var j = Math.floor(Math.random() * (i + 1));
-          var temporary = word[i];
-          word[i] = word[j];
-          word[j] = temporary;
-        }
-        return word.join("");
+      } if (pool.length < randomint) {
+        pool += prepool.charAt(Math.floor(Math.random() * prepool.length));
+          
       }
       
+    } 
+
+      /* Suffle function after the creation of string */
+  function shuffleWord (word){
+    word = word.split("")
+    for (var i = word.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temporary = word[i];
+      word[i] = word[j];
+      word[j] = temporary;
+    }
+
+    return word.join("");
+
+  }
+
   return shuffleWord(pool);
   
 }
@@ -110,5 +115,5 @@ function writePassword() {
     passwordText.value = password;
 }
 
-// Add event listener to generate button
+// Event listener to generate button
 generateBtn.addEventListener("click", writePassword);
