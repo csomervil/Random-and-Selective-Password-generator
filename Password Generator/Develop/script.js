@@ -16,40 +16,55 @@ var charupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 function generatePassword() {
 
-  var min = window.prompt("Desired MINIMUM length of password")
+  var mini = prompt("Desired MINIMUM length of password");
 
-  var max = window.prompt("Desired MAXIMUM length of password")
+  var maxi = prompt("Desired MAXIMUM length of password");
 
-  var passlower= confirm("Should there be LOWERCASE?")
+  var passlower= confirm("Should there be LOWERCASE?");
 
-  var passupper = confirm("Should there be UPPERCASE?")
+  var passupper = confirm("Should there be UPPERCASE?");
 
-  var passnumber = confirm("Should there be NUMBERS?")
+  var passnumber = confirm("Should there be NUMBERS?");
 
-  var passspecial = confirm("Should there be SPECIAL CHARACTERS?")
+  var passspecial = confirm("Should there be SPECIAL CHARACTERS?");
+
+  var randomint = (Math.random() * (parseInt(maxi) - parseInt(mini)) + parseInt(mini))
 
     if (passlower + passupper + passnumber + passspecial === 0) {
-      window.alert("You have selected no character types. Please refresh the page.")
-
-    } if (passlower === true) {
-    var pool = pool + charlower
-
-    } if (passupper === true) {
-      var pool = pool + charupper
-
-    } if (passnumber === true) {
-      var pool = pool + numbers
-
-    } if (passspecial === true) {
-      var pool = pool + special
-
+      window.alert("You have selected no character types. Please try again.")
+      return null;
     }
-  newpool = ""
-  for ( var i = 0; i < max; i++ ) {
-    newpool += pool.charAt(Math.floor(Math.random() * (max - min + 1) + min));
+
+    if ((passlower + passupper + passnumber + passspecial === 4) && mini < 4) {
+      window.alert("Your range is not possible with your requests. Please try again.")
+      return null;
+    }
+    var pool = "";
+      while (pool.length < randomint) {
+    
+        if (passlower === true && pool.length < randomint) {
+          pool += charlower.charAt(Math.floor(Math.random() * charlower.length));
+
+        } if (passupper === true && pool.length < randomint) {
+          pool += charupper.charAt(Math.floor(Math.random() * charupper.length));
+
+        } if (passnumber === true && pool.length < randomint) {
+          pool += numbers.charAt(Math.floor(Math.random() * numbers.length));
+
+        } if (passspecial === true && pool.length < randomint) {
+          pool += special.charAt(Math.floor(Math.random() * special.length));
+        }
+
+      } 
+
+    
+
+    return pool;
+  // for ( var i = 0; i < (Math.random() * (parseInt(maxi) - parseInt(mini)) + parseInt(mini)); i++ ) {
+  //   newpool += pool.charAt(Math.floor(Math.random() * pool.length));
   
-  }
-  return newpool;
+  // }
+  // return newpool;
 }
 
 // Write password to the #password input
