@@ -6,6 +6,7 @@
 
 var generateBtn = document.querySelector("#generate");
 
+/* Variables for Each Character Type */
 var charlower = "abcdefghijklmnopqrstuvwxyz"
 
 var numbers = "0123456789"
@@ -14,8 +15,10 @@ var special = "`<>/?}{[]\.~!@#$%^&*()_-+=|,.:;'"
 
 var charupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+
 function generatePassword() {
 
+  /* Prompts */
   var mini = prompt("Desired MINIMUM length of password");
 
   var maxi = prompt("Desired MAXIMUM length of password");
@@ -28,43 +31,75 @@ function generatePassword() {
 
   var passspecial = confirm("Should there be SPECIAL CHARACTERS?");
 
-  var randomint = (Math.random() * (parseInt(maxi) - parseInt(mini)) + parseInt(mini))
+  /* Random Range */
+  var randomint = Math.round((Math.random() * (parseInt(maxi) - parseInt(mini)))) + parseInt(mini)
+  
+  /* Making boolean Values Numberical for Future Use */
+  var choicenumber = passlower + passupper + passnumber + passspecial;
 
-    if (passlower + passupper + passnumber + passspecial === 0) {
+    /* Validation */
+    if (choicenumber === 0) {
       window.alert("You have selected no character types. Please try again.")
       return null;
     }
 
-    if ((passlower + passupper + passnumber + passspecial === 4) && mini < 4) {
+    if ((choicenumber === 4) && mini < 4) {
       window.alert("Your range is not possible with your requests. Please try again.")
       return null;
     }
+    
+    /* Amalgimated String for True Randomness */
+    var prepool = "";
+      if (passlower === true) {
+        prepool += charlower;
+
+      } if (passupper === true) {
+        prepool += charupper;
+
+      } if (passnumber === true) {
+        prepool += numbers;
+
+      } if (passspecial === true) {
+        prepool += special;
+      }
+
     var pool = "";
+
+      /* While Loop to Pass Each Character Type at Least once and then Pull Random Values From total String pool */
       while (pool.length < randomint) {
     
-        if (passlower === true && pool.length < randomint) {
+        if (passlower === true && pool.length < choicenumber) {
           pool += charlower.charAt(Math.floor(Math.random() * charlower.length));
 
-        } if (passupper === true && pool.length < randomint) {
+        } if (passupper === true && pool.length < choicenumber) {
           pool += charupper.charAt(Math.floor(Math.random() * charupper.length));
 
-        } if (passnumber === true && pool.length < randomint) {
+        } if (passnumber === true && pool.length < choicenumber) {
           pool += numbers.charAt(Math.floor(Math.random() * numbers.length));
 
-        } if (passspecial === true && pool.length < randomint) {
+        } if (passspecial === true && pool.length < choicenumber) {
           pool += special.charAt(Math.floor(Math.random() * special.length));
-        }
 
+        } if (passspecial === true && pool.length < randomint) {
+          pool += prepool.charAt(Math.floor(Math.random() * prepool.length));
+        }
+      
       } 
 
-    
-
-    return pool;
-  // for ( var i = 0; i < (Math.random() * (parseInt(maxi) - parseInt(mini)) + parseInt(mini)); i++ ) {
-  //   newpool += pool.charAt(Math.floor(Math.random() * pool.length));
+      /* Suffle function after the creation of string */
+      function shuffleWord (word){
+        word = word.split("")
+        for (var i = word.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var temporary = word[i];
+          word[i] = word[j];
+          word[j] = temporary;
+        }
+        return word.join("");
+      }
+      
+  return shuffleWord(pool);
   
-  // }
-  // return newpool;
 }
 
 // Write password to the #password input
