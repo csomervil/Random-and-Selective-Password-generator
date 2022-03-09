@@ -18,7 +18,7 @@ var charupper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 function generatePassword() {
 
-  /* Prompts */
+  /* Gathering Information From Prompts */
   var mini = prompt("Desired MINIMUM length of password");
 
   var maxi = prompt("Desired MAXIMUM length of password");
@@ -64,10 +64,11 @@ function generatePassword() {
       prepool += special;
 
     }
-
+  
+  /* Where the New String Will be Created */
   var pool = "";
 
-      /* While Loop to Pass Each Character Type at Least once and then Pull Random Values From total String pool */
+    /* While Loop to Pass Each Character Type at Least once and then Pull Random Values From total String pool */
     while (pool.length < randomint) {
     
       if (passlower === true && pool.length < choicenumber) {
@@ -89,7 +90,7 @@ function generatePassword() {
       
     } 
 
-      /* Suffle function after the creation of string */
+  /* Suffle function after the creation of string by creating an array of values and then changing their indices */
   function shuffleWord (word){
     word = word.split("")
     for (var i = word.length - 1; i > 0; i--) {
